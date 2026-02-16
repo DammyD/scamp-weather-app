@@ -2,62 +2,272 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- displays site properly based on user's device -->
-
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" type="image/png" sizes="32x32" href="./assets/images/favicon-32x32.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,500;0,600;1,600;0,700&family=Bricolage+Grotesque:wght@700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
-  
   <title>Frontend Mentor | Weather app</title>
-
-  <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
 </head>
 <body>
+  <!-- Settings Modal Overlay -->
+  <div class="modal-overlay" id="settingsModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Units</h2>
+        <button class="close-btn" id="closeModal">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
 
-  Units
+      <div class="settings-section">
+        <h3>Temperature</h3>
+        <div class="radio-group">
+          <label class="radio-option">
+            <input type="radio" name="temperature" value="celsius" checked>
+            <span class="radio-custom"></span>
+            <span class="radio-label">Celsius (°C)</span>
+          </label>
+          <label class="radio-option">
+            <input type="radio" name="temperature" value="fahrenheit">
+            <span class="radio-custom"></span>
+            <span class="radio-label">Fahrenheit (°F)</span>
+          </label>
+        </div>
+      </div>
 
-  Switch to Imperial/Metric
+      <div class="settings-section">
+        <h3>Wind Speed</h3>
+        <div class="radio-group">
+          <label class="radio-option">
+            <input type="radio" name="wind" value="kmh" checked>
+            <span class="radio-custom"></span>
+            <span class="radio-label">km/h</span>
+          </label>
+          <label class="radio-option">
+            <input type="radio" name="wind" value="mph">
+            <span class="radio-custom"></span>
+            <span class="radio-label">mph</span>
+          </label>
+        </div>
+      </div>
 
-  Temperature
-
-  Celsius (°C)
-  Fahrenheit (°F)
-
-  Wind Speed
-
-  km/h
-  mph
-
-  Precipitation
-
-  Millimeters (mm)
-  Inches (in)
-
-  How's the sky looking today?
-
-  Search for a city, e.g., New York
-  Search
-
-  Feels like
-  <!-- Insert temperature here -->
-
-  Humidity
-  <!-- Insert humidity here -->
-
-  Wind
-  <!-- Insert wind here -->   
-  
-  Precipitation
-  <!-- Insert precipitation here -->
-
-  Daily forecast
-  <!-- Insert daily forecast for the next 7 days here -->
-
-  Hourly forecast
-  <!-- Insert hourly forecast for the selected day here -->
-
-  <div class="attribution">
-    Challenge by <a href="https://www.frontendmentor.io?ref=challenge">Frontend Mentor</a>. 
-    Coded by <a href="#">Your Name Here</a>.
+      <div class="settings-section">
+        <h3>Precipitation</h3>
+        <div class="radio-group">
+          <label class="radio-option">
+            <input type="radio" name="precipitation" value="mm" checked>
+            <span class="radio-custom"></span>
+            <span class="radio-label">Millimeters (mm)</span>
+          </label>
+          <label class="radio-option">
+            <input type="radio" name="precipitation" value="in">
+            <span class="radio-custom"></span>
+            <span class="radio-label">Inches (in)</span>
+          </label>
+        </div>
+      </div>
+    </div>
   </div>
+
+  <!-- Main Container -->
+  <div class="container">
+    <!-- Header -->
+    <header class="header">
+      <div class="logo">
+        <img src="assets/images/logo.svg" alt="logo" height="150" width="150"/>
+      </div>
+      <button class="settings-btn" id="settingsBtn">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5">
+          <circle cx="10" cy="10" r="3"></circle>
+          <path d="M10 1v3m0 12v3M1 10h3m12 0h3M3.93 3.93l2.12 2.12m8.48 8.48l2.12 2.12M16.07 3.93l-2.12 2.12M5.83 14.17l-2.12 2.12"></path>
+        </svg>
+        <span>Units</span>
+      </button>
+    </header>
+
+    <!-- Search Section -->
+    <section class="search-section">
+      <h1 class="main-title">How's the sky looking today?</h1>
+      <div class="search-bar">
+        <svg class="search-icon" width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="8" cy="8" r="6"></circle>
+          <path d="M12 12 L18 18"></path>
+        </svg>
+        <input type="text" placeholder="Search for a place..." class="search-input">
+        <button class="search-btn">Search</button>
+      </div>
+    </section>
+
+    <!-- Main Content Grid -->
+    <div class="main-grid">
+      <!-- Left Column -->
+      <div class="left-column">
+        <!-- Current Weather Card -->
+        <div class="weather-card current-weather">
+          <div class="location-date">
+            <h2 class="location">Berlin, Germany</h2>
+            <p class="date">Tuesday, Aug 6, 2025</p>
+          </div>
+          <div class="weather-main">
+            <div class="weather-icon">
+              <!-- <svg width="80" height="80" viewBox="0 0 120 120">
+                <circle cx="60" cy="60" r="30" fill="#FF8C1A"/>
+                <g class="sun-rays">
+                  <line x1="60" y1="15" x2="60" y2="25" stroke="#FF8C1A" stroke-width="3" stroke-linecap="round"/>
+                  <line x1="60" y1="95" x2="60" y2="105" stroke="#FF8C1A" stroke-width="3" stroke-linecap="round"/>
+                  <line x1="15" y1="60" x2="25" y2="60" stroke="#FF8C1A" stroke-width="3" stroke-linecap="round"/>
+                  <line x1="95" y1="60" x2="105" y2="60" stroke="#FF8C1A" stroke-width="3" stroke-linecap="round"/>
+                  <line x1="27" y1="27" x2="34" y2="34" stroke="#FF8C1A" stroke-width="3" stroke-linecap="round"/>
+                  <line x1="86" y1="86" x2="93" y2="93" stroke="#FF8C1A" stroke-width="3" stroke-linecap="round"/>
+                  <line x1="27" y1="93" x2="34" y2="86" stroke="#FF8C1A" stroke-width="3" stroke-linecap="round"/>
+                  <line x1="86" y1="34" x2="93" y2="27" stroke="#FF8C1A" stroke-width="3" stroke-linecap="round"/>
+                </g>
+              </svg> -->
+              <img src="./assets/images/icon-sunny.webp" height="80" width="80" alt="">
+            </div>
+            <div class="temperature">20°</div>
+          </div>
+        </div>
+
+        <!-- Stats Grid -->
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-label">Feels Like</div>
+            <div class="stat-value">18°</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Humidity</div>
+            <div class="stat-value">45%</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Wind</div>
+            <div class="stat-value">14 km/h</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Precipitation</div>
+            <div class="stat-value">0 mm</div>
+          </div>
+        </div>
+
+        <!-- Daily Forecast -->
+        <div class="forecast-section daily-forecast">
+          <h3 class="section-title">Daily forecast</h3>
+          <div class="forecast-days">
+            <div class="day-card">
+              <div class="day-name">Tue</div>
+              <img src='assets/images/icon-rain.webp' class="day-icon" alt="Rainy" height="32" width="32"/>
+              <div class="day-temps">
+                <span class="temp-high">26°</span>
+                <span class="temp-low">18°</span>
+              </div>
+            </div>
+            <div class="day-card">
+              <div class="day-name">Wed</div>
+              <img src='assets/images/icon-drizzle.webp' class="day-icon" alt="Drizzle" height="32" width="32"/>
+              <div class="day-temps">
+                <span class="temp-high">27°</span>
+                <span class="temp-low">19°</span>
+              </div>
+            </div>
+            <div class="day-card">
+              <div class="day-name">Thu</div>
+              <img src='assets/images/icon-sunny.webp' class="day-icon" alt="Sunny" height="32" width="32"/>
+              <div class="day-temps">
+                <span class="temp-high">28°</span>
+                <span class="temp-low">20°</span>
+              </div>
+            </div>                     
+            <div class="day-card">
+              <div class="day-name">Fri</div>
+              <img src='assets/images/icon-partly-cloudy.webp' class="day-icon" alt="Partly Cloudy" height="32" width="32"/>
+              <div class="day-temps">
+                <span class="temp-high">30°</span>
+                <span class="temp-low">21°</span>
+              </div>
+            </div>
+            <div class="day-card">
+              <div class="day-name">Sat</div>
+              <img src='assets/images/icon-storm.webp' class="day-icon" alt="Stormy" height="32" width="32"/>
+              <div class="day-temps">
+                <span class="temp-high">28°</span>
+                <span class="temp-low">19°</span>
+              </div>
+            </div>
+            <div class="day-card">
+              <div class="day-name">Sun</div>
+              <img src='assets/images/icon-snow.webp' class="day-icon" alt="Snow" height="32" width="32"/>
+              <div class="day-temps">
+                <span class="temp-high">24°</span>
+                <span class="temp-low">17°</span>
+              </div>
+            </div>
+            <div class="day-card">
+              <div class="day-name">Mon</div>
+              <img src='assets/images/icon-fog.webp' class="day-icon" alt="Foggy" height="32" width="32"/>
+              <div class="day-temps">
+                <span class="temp-high">22°</span>
+                <span class="temp-low">16°</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Column - Hourly Forecast -->
+      <div class="right-column">
+        <div class="forecast-section hourly-forecast">
+          <div class="hourly-header">
+            <h3 class="section-title">Hourly forecast</h3>
+            <select class="day-selector">
+              <option>Tuesday</option>
+            </select>
+          </div>
+          <div class="hourly-times">
+            <div class="hour-card">
+              <div class="hour-time">4 PM</div>
+              <div class="hour-temp">30°</div>
+            </div>
+            <div class="hour-card">
+              <div class="hour-time">5 PM</div>
+              <div class="hour-temp">30°</div>
+            </div>
+            <div class="hour-card">
+              <div class="hour-time">6 PM</div>
+              <div class="hour-temp">30°</div>
+            </div>
+            <div class="hour-card">
+              <div class="hour-time">7 PM</div>
+              <div class="hour-temp">30°</div>
+            </div>
+            <div class="hour-card">
+              <div class="hour-time">8 PM</div>
+              <div class="hour-temp">30°</div>
+            </div>
+            <div class="hour-card">
+              <div class="hour-time">9 PM</div>
+              <div class="hour-temp">30°</div>
+            </div>
+            <div class="hour-card">
+              <div class="hour-time">10 PM</div>
+              <div class="hour-temp">30°</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Attribution -->
+    <div class="attribution">
+      Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>. 
+      Coded by <a href="#">Blessing Dawodu</a>.
+    </div>
+  </div>
+
+  <script src="script.js"></script>
 </body>
 </html>
