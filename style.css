@@ -141,7 +141,6 @@ body {
   display: none;
 }
 
-
 .modal-overlay.active .modal-content {
   transform: scale(1);
 }
@@ -333,11 +332,9 @@ body {
    =================================== */
 .main-grid {
   display: grid;
-  /* left ~60%, right ~40% — right column same height as left */
   grid-template-columns: 2fr 1fr;
   gap: var(--spacing-sm);
   margin-bottom: var(--spacing-xl);
-  /* stretch so both columns are equal height */
   align-items: stretch;
 }
 
@@ -347,7 +344,6 @@ body {
   gap: var(--spacing-md);
 }
 
-/* Right column stretches to match left column height */
 .right-column {
   display: flex;
   flex-direction: column;
@@ -459,7 +455,6 @@ body {
   border: 1px solid var(--neutral-700);
   border-radius: var(--radius-xl);
   padding: var(--spacing-md) var(--spacing-sm);
-  /* fills the full height of the right column */
   flex: 1;
 }
 
